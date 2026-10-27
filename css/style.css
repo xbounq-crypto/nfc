@@ -154,3 +154,5 @@ footer a{display:block;text-decoration:none;padding:4px 0}
 [hidden]{display:none!important}
 
 .video:not(.ok){display:none}
+
+@media (max-width:860px){header{background:var(--bg);-webkit-backdrop-filter:none;backdrop-filter:none}.arr,.gd button{-webkit-backdrop-filter:none;backdrop-filter:none}}
