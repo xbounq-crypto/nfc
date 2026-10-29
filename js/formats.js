@@ -4,7 +4,7 @@ const $=s=>document.querySelector(s),RM=matchMedia('(prefers-reduced-motion:redu
 let ver=0,saved=null,ci=0,fi=0,hero=null,combo=null,hi=0,iv=0,tm=0;
 const IM={},IMF={},FONT='Manrope,system-ui,sans-serif';
 function trim(im,doTrim){const M=1024,q=Math.min(1,M/Math.max(im.naturalWidth,im.naturalHeight)),w=Math.round(im.naturalWidth*q),h=Math.round(im.naturalHeight*q),k=document.createElement('canvas');k.width=w;k.height=h;const x=k.getContext('2d');x.drawImage(im,0,0,w,h);if(!doTrim)return k;let d;try{d=x.getImageData(0,0,w,h).data}catch(e){return k}let x0=w,y0=h,x1=0,y1=0;for(let j=0;j<h;j++)for(let i=0;i<w;i++){const p=(j*w+i)*4;if(d[p+3]<16||(d[p]>244&&d[p+1]>244&&d[p+2]>244))continue;if(i<x0)x0=i;if(i>x1)x1=i;if(j<y0)y0=j;if(j>y1)y1=j}if(x1-x0<w*.3||y1-y0<h*.3)return k;const o=document.createElement('canvas');o.width=x1-x0+1;o.height=y1-y0+1;o.getContext('2d').drawImage(k,x0,y0,o.width,o.height,0,0,o.width,o.height);return o}
-const lf=(f,c)=>new Promise(r=>{const i=new Image(),k=c?f.id+'-'+c.id:'biz';i.onload=()=>{try{IMF[k]=trim(i,!!f.fit)}catch(e){IMF[k]=i}r()};i.onerror=()=>r();i.src='images/faces/'+k+'.png'});
+const lf=(f,c)=>new Promise(r=>{const i=new Image(),k=c?f.id+'-'+c.id:'biz';i.onload=()=>{try{IMF[k]=trim(i,!!f.fit)}catch(e){IMF[k]=i}r()};i.onerror=()=>r();i.src='images/faces/'+k+'.webp'});
 const mkFL=()=>{const a=[];F.forEach(f=>f.id==='biz'?a.push(lf(f)):C.forEach(c=>a.push(lf(f,c))));return a};
 const load=c=>new Promise(r=>{if(!c.img)return r();const i=new Image();i.onload=()=>{try{IM[c.id]=trim(i,c.trim!==false)}catch(e){IM[c.id]=i}r()};i.onerror=()=>r();i.src=c.img});
 function wrap(x,t,mx){let l='',o=[];t.split(' ').forEach(s=>{const n=l?l+' '+s:s;if(x.measureText(n).width>mx&&l){o.push(l);l=s}else l=n});o.push(l);return o}
@@ -40,14 +40,18 @@ zone.addEventListener('pointermove',e=>{if(RM)return;const b=cv.getBoundingClien
 ['pointerleave','pointerup','pointercancel'].forEach(n=>zone.addEventListener(n,()=>S.on=0));
 S.cache={};
 S.clear=()=>{Object.values(S.cache).forEach(e=>{e.t.dispose();e.geo.dispose()});S.cache={}};
-S.set=(id,c)=>{const f=F.find(x=>x.id===id),g=objs[id],u=g.userData,key=id+'|'+(c.id||'')+'|'+ver;let e=S.cache[key];
+S.ent=(f,c,key)=>{let e=S.cache[key];
 if(!e){const df=IMF[f.id==='biz'?'biz':f.id+'-'+c.id],im=df||(f.fit&&IM[c.id]),a=im?im.width/im.height:f.w/f.h,W=a>=1?1.5:1.5*a,H=a>=1?1.5/a:1.5,t=new THREE.CanvasTexture(face(f,c));t.encoding=THREE.sRGBEncoding;t.anisotropy=4;t.repeat.set(1/W,1/H);t.offset.set(.5,.5);e=S.cache[key]={t,W,H,geo:slab(W,H,f.t,0,f.bv)}}
+return e};
+S.init=t=>{try{R.initTexture&&R.initTexture(t)}catch(x){}};
+S.set=(id,c)=>{const f=F.find(x=>x.id===id),g=objs[id],u=g.userData,key=id+'|'+(c.id||'')+'|'+ver,e=S.ent(f,c,key);
 u.body.geometry=e.geo;u.W=e.W;u.H=e.H;if(u.base){u.base.position.y=-e.H/2+.08;u.base.scale.x=e.W/1.2}
 u.cap.map=e.t;u.cap.needsUpdate=true;if(id==='card'&&c.c)u.sd.color.set(c.c).multiplyScalar(1.6);if(S.cur!==g){S.cur=g;u.sp=RM?0:-1.3}if(RM)S.f(0)};
 S.f=t=>{S.t=t;const k=RM?0:1,tx=S.on?S.py*.5:Math.sin(t/1400)*.08*k,ty=S.on?S.px*.65:Math.sin(t/1800)*.18*k;rx+=(tx-rx)*.08;ry+=(ty-ry)*.08;
 const gv=n=>parseFloat(cv.style.getPropertyValue(n)),gx=(gv('--gx')||0)*Math.PI/180,gy=(gv('--gy')||0)*Math.PI/180,gs=gv('--gs')||1;
 Object.values(objs).forEach(g=>{const u=g.userData;u.s+=((g===S.cur?1:0)-u.s)*(RM?1:.14);u.sp*=.9;g.visible=u.s>.01;g.scale.setScalar(Math.max(.001,u.s)*gs);g.rotation.set(rx+gx,ry+gy+u.sp,0)});
 pl.position.x+=((S.on?S.px*1.6:Math.sin(t/1600)*.9)-pl.position.x)*.1;pl.position.y+=((S.on?-S.py*1.6:Math.cos(t/2100)*.6)-pl.position.y)*.1;R.render(sc,cam)};
+try{R.compile(sc,cam)}catch(x){}
 new ResizeObserver(size).observe(cv);size();V.push(S);return S}
 /* первый экран: чипы форматов и смена модели */
 const fch=$('#fch'),hs=i=>{hi=i;fch.querySelectorAll('button').forEach((b,j)=>b.setAttribute('aria-selected',j==i));hero&&hero.set(F[i].id,F[i].id==='biz'?{}:byId(F[i].demo))},
@@ -69,12 +73,13 @@ window.gal=d=>{const n=4;gi=(gi+d+n)%n;gShow()};
 window.swSet=i=>{ci=i;gBuild();upd()};gBuild();upd();
 /* 3D запускается, когда загружены шрифты и картинки */
 /* 3D запускается сразу, как загружена картинка первого экрана; остальное подгружается позже, камера второго блока создаётся при подходе к нему */
-const heroC=byId(F[0].demo),refresh=()=>{ver++;V.forEach(s=>s.clear&&s.clear());hs(hi);upd()};
+let wt=0;const warm=()=>{clearTimeout(wt);let i=0;const step=()=>{if(!hero||!hero.ent||i>=F.length)return;const f=F[i++],c=f.id==='biz'?{}:byId(f.demo);try{const e=hero.ent(f,c,f.id+'|'+(c.id||'')+'|'+ver);hero.init(e.t)}catch(x){}wt=setTimeout(step,110)};wt=setTimeout(step,250)};
+const heroC=byId(F[0].demo),refresh=()=>{ver++;V.forEach(s=>s.clear&&s.clear());hs(hi);upd();warm()};
 Promise.all([load(heroC),lf(F[0],heroC)]).then(()=>{if(!window.THREE)return;
 hero=View($('#ht'),{zone:document.querySelector('.hero')});hs(hi);auto();
 const io=new IntersectionObserver(es=>es.forEach(e=>{const s=V.find(v=>v.cv===e.target);if(s)s.vis=e.isIntersecting}));if(hero.cv)io.observe(hero.cv);
 const cio=new IntersectionObserver((es,o)=>{if(es.some(e=>e.isIntersecting)){o.disconnect();combo=View($('#sw'),{});io.observe(combo.cv);upd()}},{rootMargin:'600px'});cio.observe($('#sw'));
 setTimeout(()=>Promise.all(C.filter(c=>c!==heroC).map(load).concat(mkFL())).then(refresh),500);
 document.fonts.ready.then(refresh);
-if(!RM)(function L(t){V.forEach(s=>s.vis&&!s.hold&&s.f&&s.f(t));requestAnimationFrame(L)})(0)});
+if(!RM)(function L(t){if(!document.hidden)V.forEach(s=>s.vis&&!s.hold&&s.f&&s.f(t));requestAnimationFrame(L)})(0)});
 })();
