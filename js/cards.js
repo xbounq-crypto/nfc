@@ -4,7 +4,7 @@
    img   - путь к PNG/JPG/WebP. Без img карточка рисуется из цветов a/c.
    trim:false - не обрезать белые поля вокруг картинки (по умолчанию обрезаются).
    Остальное: k - подпись кнопки, h/p/o - заголовок, описание, пометка. */
-window.SITE={telegram:'nft1shkin',max:'',phone:'+79500897913'};   // telegram: ник без @; max: полная ссылка на профиль в Max (https://max.ru/...); phone: номер для звонка
+window.SITE={telegram:'nft1shkin',max:'https://max.ru/u/f9LHodD0cOKueliC1RtZSnGr5BJY_Rhh0U6NZbIw7HrZ_rbPN4EXUc4_IXE',phone:'+79500897913'};   // telegram: ник без @; max: полная ссылка на профиль в Max (https://max.ru/...); phone: номер для звонка
 window.HERO='2gis';          // id карточки на первом экране
 window.CARDS=[
 {id:'2gis',k:'2ГИС',h:'Отзывы в 2ГИС',p:'Касание открывает страницу отзыва вашей организации в 2ГИС.',o:'Готовое решение, оформление согласуется.',b:'Оцените нас в 2ГИС',s:'Приложите телефон',a:'#4f6b57',c:'#27382f',img:'images/2gis.webp'},
