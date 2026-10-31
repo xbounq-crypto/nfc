@@ -5,40 +5,37 @@ const nv=$('#nv'),bg=$('#bg');bg.onclick=()=>bg.setAttribute('aria-expanded',nv.
 nv.querySelectorAll('a').forEach(a=>a.onclick=()=>{nv.classList.remove('o');bg.setAttribute('aria-expanded','false')});
 /* products */
 const P=window.CARDS;
-const tb=$('#tabs');let cur=0,dir=1;
-function show(i,f){cur=i;const x=P[i],t=$('#sw-txt');
-tb.querySelectorAll('button').forEach((b,j)=>b.setAttribute('aria-selected',j==i));
-const apply=()=>{$('#sw-h').textContent=x.h;$('#sw-p').textContent=x.p;$('#sw-o').textContent=x.o;t.style.opacity=1};if(window.swSet)swSet(i);
-f?apply():(t.style.opacity=0,setTimeout(apply,150))}
-P.forEach((x,i)=>{const b=document.createElement('button');b.role='tab';b.textContent=x.k;b.onclick=()=>show(i);tb.append(b)});show(0,1);
+const G=window.GROUPS,tb=$('#tabs');let cur=0,dir=1;
+function show(i,f){cur=i;tb.querySelectorAll('button').forEach((b,j)=>b.setAttribute('aria-selected',j==i));if(window.swGroup)swGroup(i,f)}
+G.forEach((x,i)=>{const b=document.createElement('button');b.role='tab';b.textContent=x.k;b.onclick=()=>show(i);tb.append(b)});show(0,1);
 /* water */
 (function(){const cv=$('#water'),gl=cv.getContext('webgl',{antialias:false,alpha:true});
 const fb=()=>{cv.style.background='linear-gradient(180deg,transparent,var(--w1) 60%,var(--w0))'};
 if(!gl||(navigator.hardwareConcurrency||4)<3){fb();return}
 const vs='attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
-const fs=`precision mediump float;uniform vec2 r;uniform float t;uniform vec3 rp[4];uniform vec3 c0,c1,ch;uniform float sp;
+const fs=`precision mediump float;uniform vec2 r;uniform float t;uniform vec3 rp[4];uniform vec3 c0,c1,ch;uniform float sp,ct,mx;
 void main(){vec2 uv=gl_FragCoord.xy/r;uv.x*=r.x/r.y;
 float q=uv.y*5.+t*.4;float k1=cos(uv.x*9.+t*.7+sin(q))*.5,k2=cos(uv.y*14.-t*.9+uv.x*3.)*.3,k3=cos((uv.x+uv.y)*22.+t*1.3)*.12;
 vec2 g=vec2(k1*9.+k2*3.+k3*22.,k1*5.*cos(q)+k2*14.+k3*22.);
 for(int i=0;i<4;i++){float a=t-rp[i].z;if(a>0.&&a<4.){vec2 dv=uv-rp[i].xy;float d=max(length(dv),.0001);float x=d-a*.35;float en=exp(-a*1.4-abs(x)*14.)*2.;g+=en*(60.*cos(x*60.)-14.*sign(x)*sin(x*60.))*dv/d;}}
-vec3 n=normalize(vec3(g*.07,1.));
+vec3 n=normalize(vec3(g*.07*ct,1.));
 vec3 base=mix(c0,c1,uv.y);
 float s=pow(max(dot(n,normalize(vec3(-.4,.6,.7))),0.),28.);
-float f=.5+n.x*1.2+n.y*.9;base=mix(base,ch,clamp(f,0.,1.)*.45);
+float f=.5+n.x*1.2+n.y*.9;base=mix(base,ch,clamp(f,0.,1.)*mx);
 gl_FragColor=vec4(base+vec3(s*sp),1.);}`;
 const sh=(t,s)=>{const o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);return o};
 const pr=gl.createProgram();gl.attachShader(pr,sh(gl.VERTEX_SHADER,vs));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,fs));gl.linkProgram(pr);
 if(!gl.getProgramParameter(pr,gl.LINK_STATUS)){fb();return}
 gl.useProgram(pr);const bf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,bf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
 const lp=gl.getAttribLocation(pr,'p');gl.enableVertexAttribArray(lp);gl.vertexAttribPointer(lp,2,gl.FLOAT,false,0,0);
-const U=n=>gl.getUniformLocation(pr,n),ur=U('r'),ut=U('t'),urp=U('rp'),u0=U('c0'),u1=U('c1'),uh=U('ch'),usp=U('sp');
+const U=n=>gl.getUniformLocation(pr,n),ur=U('r'),ut=U('t'),urp=U('rp'),u0=U('c0'),u1=U('c1'),uh=U('ch'),usp=U('sp'),uct=U('ct'),umx=U('mx');
 const hx=s=>{s=(s||'').trim().replace('#','');if(s.length===3)s=s.replace(/./g,'$&$&');const n=parseInt(s,16)||0;return[(n>>16&255)/255,(n>>8&255)/255,(n&255)/255]};let TW={c0:[.12,.12,.11],c1:[.2,.2,.18],ch:[.62,.6,.5],sp:.45};
-const rt=()=>{const cs=getComputedStyle(document.documentElement),g=n=>cs.getPropertyValue(n);TW={c0:hx(g('--w0')),c1:hx(g('--w1')),ch:hx(g('--wh')),sp:parseFloat(g('--ws'))||.2}};rt();window.__wt=()=>{rt();if(RM)draw()};
+const rt=()=>{const cs=getComputedStyle(document.documentElement),g=n=>cs.getPropertyValue(n);TW={c0:hx(g('--w0')),c1:hx(g('--w1')),ch:hx(g('--wh')),sp:parseFloat(g('--ws'))||.2,ct:parseFloat(g('--wc'))||1,mx:parseFloat(g('--wm'))||.45}};rt();window.__wt=()=>{rt();if(RM)draw()};
 const R=new Float32Array(12).fill(0);for(let i=0;i<4;i++)R[i*3+2]=-99;let ri=0,t0=performance.now(),lastM=0,vis=true,raf;
 let sc=innerWidth<700?.32:.5,pt=0,sl=0,nf=0;
 function rs(){cv.width=Math.max(2,cv.clientWidth*sc|0);cv.height=Math.max(2,cv.clientHeight*sc|0);gl.viewport(0,0,cv.width,cv.height)}
 function rip(cx,cy){const b=cv.getBoundingClientRect(),x=(cx-b.left)/b.width*(b.width/b.height),y=1-(cy-b.top)/b.height;R[ri*3]=x;R[ri*3+1]=y;R[ri*3+2]=(performance.now()-t0)/1000;ri=(ri+1)%4;if(RM&&!raf)draw()}
-function draw(){const t=(performance.now()-t0)/1000;gl.uniform2f(ur,cv.width,cv.height);gl.uniform3fv(u0,TW.c0);gl.uniform3fv(u1,TW.c1);gl.uniform3fv(uh,TW.ch);gl.uniform1f(usp,TW.sp);gl.uniform1f(ut,RM?0:t+10);gl.uniform3fv(urp,RM?new Float32Array(12).fill(0):R);gl.drawArrays(gl.TRIANGLES,0,3)}
+function draw(){const t=(performance.now()-t0)/1000;gl.uniform2f(ur,cv.width,cv.height);gl.uniform3fv(u0,TW.c0);gl.uniform3fv(u1,TW.c1);gl.uniform3fv(uh,TW.ch);gl.uniform1f(usp,TW.sp);gl.uniform1f(uct,TW.ct);gl.uniform1f(umx,TW.mx);gl.uniform1f(ut,RM?0:t+10);gl.uniform3fv(urp,RM?new Float32Array(12).fill(0):R);gl.drawArrays(gl.TRIANGLES,0,3)}
 let lf=0;function loop(ts){if(ts&&pt){const dt=ts-pt;sl=sl*.92+dt*.08;if(++nf%50===0&&sl>27&&sc>.2){sc=Math.max(.18,sc*.8);rs()}}pt=ts||0;if(!ts||ts-lf>=30){lf=ts||0;draw()}raf=vis&&!RM&&!document.hidden?requestAnimationFrame(loop):0}
 let lw=innerWidth;addEventListener('resize',()=>{if(innerWidth===lw)return;lw=innerWidth;rs();draw()});rs();
 if(!RM)new IntersectionObserver(e=>{vis=e[0].isIntersecting;if(vis&&!raf)raf=requestAnimationFrame(loop)}).observe(cv);
@@ -48,7 +45,7 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden&&vis&&!raf
 loop();
 })();
 /* carousel, tilt, scroll scale, button fill, telegram */
-const go=d=>{dir=d;show((cur+d+P.length)%P.length)};
+const go=d=>{dir=d;show((cur+d+G.length)%G.length)};
 $('#pv').onclick=()=>window.gal&&gal(-1);$('#nx').onclick=()=>window.gal&&gal(1);
 let sx=null;const stg=document.querySelector('.stage');
 stg.addEventListener('pointerdown',e=>sx=e.clientX);
@@ -133,4 +130,5 @@ ScrollTrigger.batch(els,{start:'top 90%',onEnter:b=>gsap.to(b,{opacity:1,y:0,dur
 
 /* video from images/demo.mp4 */
 (function(){const v=$('#vid'),b=$('#vbox');if(!v)return;const ok=()=>{if(!v.videoWidth)return;b.style.setProperty('--ar',v.videoWidth/v.videoHeight);b.style.aspectRatio=v.videoWidth+'/'+v.videoHeight;b.classList.add('ok')};v.addEventListener('loadedmetadata',ok);if(v.readyState>=1)ok()})();
+
 

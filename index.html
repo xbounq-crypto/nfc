@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Siberia NFC — таблички и метки для бизнеса</title>
+<title>Taiga NFC — таблички и метки для бизнеса</title>
 <meta name="description" content="NFC-таблички и метки для отзывов в 2ГИС и Яндекс Картах, меню и ссылок. Готовые решения и дизайн под ваш бренд.">
-<meta property="og:title" content="Siberia NFC — NFC-решения для бизнеса">
+<meta property="og:title" content="Taiga NFC — NFC-решения для бизнеса">
 <meta property="og:description" content="Таблички и метки для отзывов, меню и связи с клиентами. Дизайн под ваш бренд.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
@@ -13,12 +13,12 @@
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="images/favicon.ico" sizes="48x48">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-<meta name="theme-color" content="#101114">
+<meta name="theme-color" content="#E9E6DF">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <header id="hd"><div class="w">
-<a class="logo" href="#top"><svg width="26" height="26" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.3" stroke-linecap="round"><circle cx="32" cy="32" r="5" fill="currentColor" stroke="none"/><path d="M32.0 32.0L32.0 4.0M32.0 18.0Q35.8 12.6 39.7 11.6M32.0 18.0Q28.2 12.6 24.3 11.6M32.0 10.0Q34.7 5.6 37.4 5.5M32.0 10.0Q29.3 5.6 26.6 5.5M32.0 32.0L7.8 18.0M19.9 25.0Q17.1 19.0 18.1 15.2M19.9 25.0Q13.3 25.6 10.5 28.4M12.9 21.0Q10.4 16.5 11.7 14.1M12.9 21.0Q7.8 21.1 6.4 23.4M32.0 32.0L7.8 46.0M19.9 39.0Q13.3 38.4 10.5 35.6M19.9 39.0Q17.1 45.0 18.1 48.8M12.9 43.0Q7.8 42.9 6.4 40.6M12.9 43.0Q10.4 47.5 11.7 49.9M32.0 32.0L32.0 60.0M32.0 46.0Q28.2 51.4 24.3 52.4M32.0 46.0Q35.8 51.4 39.7 52.4M32.0 54.0Q29.3 58.4 26.6 58.5M32.0 54.0Q34.7 58.4 37.4 58.5M32.0 32.0L56.2 46.0M44.1 39.0Q46.9 45.0 45.9 48.8M44.1 39.0Q50.7 38.4 53.5 35.6M51.1 43.0Q53.6 47.5 52.3 49.9M51.1 43.0Q56.2 42.9 57.6 40.6M32.0 32.0L56.2 18.0M44.1 25.0Q50.7 25.6 53.5 28.4M44.1 25.0Q46.9 19.0 45.9 15.2M51.1 21.0Q56.2 21.1 57.6 23.4M51.1 21.0Q53.6 16.5 52.3 14.1"/></svg>Siberia NFC</a>
+<a class="logo" href="#top"><svg width="32" height="32" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22.5 19.5L32 11L41.5 19.5M16 31.5L32 19.5L48 31.5M9 45.5L32 29.5L55 45.5M32 45.5L32 53.5"/></svg>Taiga NFC</a>
 <button class="burger" id="bg" aria-label="Меню" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button>
 <nav id="nv"><a href="#solutions">Решения</a><a href="#how">Как это работает</a><a href="#biz">Для бизнеса</a><a href="#faq">FAQ</a><a class="btn" href="#contact" style="color:var(--bg)">Обсудить заказ</a></nav>
 </div></header>
@@ -48,7 +48,9 @@
 <div>
 <div class="tl">Формат</div><div class="tabs" role="tablist" id="ftabs"></div><div class="tl">Что откроется</div><div class="tabs" role="tablist" id="tabs"></div>
 <div id="sw-txt" style="margin-top:24px"><h3 id="sw-h"></h3><p class="mut" id="sw-p" style="margin-top:10px"></p><p id="sw-o" class="note" style="margin-top:12px"></p></div>
-<div class="row"><a class="btn" href="#contact">Обсудить заказ</a></div>
+<div id="sw-dots" class="dots" hidden></div>
+<div id="up" hidden><p id="uph" class="note"></p><div class="upr"><button class="btn ghost" id="upb" type="button">Загрузить PNG</button><button class="btn ghost" id="upx" type="button" hidden>Убрать</button><input id="upf" type="file" accept="image/png,.png" hidden></div><p id="ups" class="note" role="status" aria-live="polite"></p></div>
+<div class="row"><a class="btn" href="#contact">Обсудить заказ</a><a class="btn ghost" id="pricebtn" href="#price">Узнать цену</a></div>
 </div>
 <div class="stage"><button class="arr" id="pv" aria-label="Предыдущая">‹</button><button class="arr" id="nx" aria-label="Следующая">›</button><canvas id="sw" class="cv" role="img" aria-label="Объёмная модель выбранного формата"></canvas><div class="gp" id="gp"></div><div class="gd" id="gd"></div></div>
 </div>
@@ -67,14 +69,15 @@
 <p class="note" style="margin-top:16px">Отдельное приложение обычно не нужно, но работа зависит от модели смартфона и его настроек: на некоторых устройствах NFC нужно включить.</p>
 </div></section>
 
-<section><div class="w">
-<h2>Четыре сценария</h2>
-<div class="grid4" style="margin-top:28px">
-<div class="card"><span class="tag">Рестораны, салоны, клиники</span><h3>Отзывы в 2ГИС</h3><p>Метка ведёт сразу на страницу отзыва вашей организации, без поиска по карте.</p><p><i>Например: табличка на стойке администратора.</i></p><a href="#contact">Обсудить</a></div>
-<div class="card"><span class="tag">Кафе, магазины, автосервисы</span><h3>Отзывы в Яндекс Картах</h3><p>То же касание, но адрес ведёт в карточку на Яндекс Картах. Оформление отдельное.</p><p><i>Например: наклейка у кассы.</i></p><a href="#contact">Обсудить</a></div>
-<div class="card"><span class="tag">Общепит, магазины, отели</span><h3>Меню и информация</h3><p>Меню, каталог, прайс или сайт открываются без QR и без набора адреса.</p><p><i>Например: подставка на столе.</i></p><a href="#contact">Обсудить</a></div>
-<div class="card"><span class="tag">Любой бизнес</span><h3>Индивидуальное решение</h3><p>Дизайн, материал и ссылка под вашу задачу: запись, акция, Wi-Fi, соцсети.</p><p><i>Например: серия табличек для сети точек.</i></p><a href="#contact">Обсудить</a></div>
-</div></div></section>
+<section id="price"><div class="w">
+<span class="eyebrow">Цены</span>
+<h2 style="margin:10px 0 8px">Сколько это стоит</h2>
+<p class="mut" style="max-width:34em">Цена указана за одну штуку и считается от стандартного варианта.</p>
+<div class="grid4" id="pg" style="margin-top:28px"></div>
+<div class="pn"><h3>Цену считаем индивидуально</h3>
+<div class="pn2"><p><b>Выйдет дешевле,</b> если размер меньше или тираж больше. Для крупных заказов обсудим скидку.</p><p><b>Выйдет дороже,</b> если нужен свой дизайн, другой материал или размер больше.</p></div>
+<div class="row" style="margin-top:20px"><a class="btn" href="#contact">Обсудить заказ</a></div></div>
+</div></section>
 
 <section id="biz" style="background:var(--card)"><div class="w">
 <span class="eyebrow">Для бизнеса</span>
@@ -120,7 +123,7 @@
 </main>
 
 <footer><div class="w">
-<div><b style="color:var(--ink)">Siberia NFC</b><p style="margin-top:8px">NFC-таблички и метки для бизнеса.</p></div>
+<div><b style="color:var(--ink)">Taiga NFC</b><p class="tagl">SMART CONNECTION</p><p style="margin-top:8px">NFC-таблички и метки для бизнеса.</p></div>
 <div><a href="#solutions">Решения</a><a href="#faq">FAQ</a></div>
 </div></footer>
 
