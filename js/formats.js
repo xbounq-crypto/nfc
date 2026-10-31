@@ -44,7 +44,7 @@ const f=F[fi],a=asp(f,f.id==='biz'?{}:byId('brand')),img=await decode(buf);OWN[c
 catch(e){st.textContent=typeof e==='string'?e:'Не удалось открыть картинку'}}})();
 /* цены: карточки и переход «Узнать цену» к выбранному формату */
 (function(){const g=$('#pg');if(!g)return;const fm=n=>String(n).replace(/\B(?=(\d{3})+$)/g,'\u00a0');
-g.innerHTML=F.map(x=>'<div class="card" data-f="'+x.id+'"><h3>'+x.n+'</h3><div class="pr"><small>от</small> '+(x.price?fm(x.price)+'\u00a0₽':'по запросу')+'</div><dl><dt>Размер</dt><dd>'+x.dim+'</dd><dt>Материал</dt><dd>'+x.ma+'</dd></dl><p class="mut">'+x.p+'</p></div>').join('');
+g.innerHTML=F.map(x=>'<div class="card" data-f="'+x.id+'"><h3>'+x.n+'</h3><div class="pr"> '+(x.price?fm(x.price)+'\u00a0₽':'по запросу')+'</div><dl><dt>Размер</dt><dd>'+x.dim+'</dd><dt>Материал</dt><dd>'+x.ma+'</dd></dl><p class="mut">'+x.p+'</p></div>').join('');
 let ht;window.priceGo=id=>{const s=$('#price'),c=g.querySelector('[data-f="'+id+'"]'),sm=RM?'auto':'smooth';if(!s)return;
 s.scrollIntoView({behavior:sm,block:'start'});
 if(c){const gr=g.getBoundingClientRect(),cr=c.getBoundingClientRect();g.scrollTo({left:Math.max(0,cr.left-gr.left+g.scrollLeft-16),behavior:sm});
