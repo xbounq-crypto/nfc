@@ -132,3 +132,4 @@ ScrollTrigger.batch(els,{start:'top 90%',onEnter:b=>gsap.to(b,{opacity:1,y:0,dur
 (function(){const v=$('#vid'),b=$('#vbox');if(!v)return;const ok=()=>{if(!v.videoWidth)return;b.style.setProperty('--ar',v.videoWidth/v.videoHeight);b.style.aspectRatio=v.videoWidth+'/'+v.videoHeight;b.classList.add('ok')};v.addEventListener('loadedmetadata',ok);if(v.readyState>=1)ok()})();
 
 
+
