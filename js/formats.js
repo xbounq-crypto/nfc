@@ -94,7 +94,7 @@ return e};
 S.init=t=>{try{R.initTexture&&R.initTexture(t)}catch(x){}};
 S.set=(id,c,spin)=>{const f=F.find(x=>x.id===id),g=objs[id],u=g.userData,key=id+'|'+(c.id||'')+'|'+ver,e=S.ent(f,c,key);
 u.body.geometry=e.geo;u.W=e.W;u.H=e.H;if(u.base){u.base.position.y=-e.H/2+.08;u.base.scale.x=e.W/1.2}
-u.cap.map=e.t;u.cap.needsUpdate=true;if(id==='card'&&c.c)u.sd.color.set(c.c).multiplyScalar(1.6);if(S.cur!==g||spin){S.cur=g;u.sp=RM?0:-1.3}if(RM)S.f(0)};
+u.cap.map=e.t;u.cap.needsUpdate=true;if(id==='card')u.sd.color.set(c.edge||f.edge);if(S.cur!==g||spin){S.cur=g;u.sp=RM?0:-1.3}if(RM)S.f(0)};
 S.f=t=>{S.t=t;const k=RM?0:1,tx=S.on?S.py*.5:Math.sin(t/1400)*.08*k,ty=S.on?S.px*.65:Math.sin(t/1800)*.18*k;rx+=(tx-rx)*.08;ry+=(ty-ry)*.08;
 const gv=n=>parseFloat(cv.style.getPropertyValue(n)),gx=(gv('--gx')||0)*Math.PI/180,gy=(gv('--gy')||0)*Math.PI/180,gs=gv('--gs')||1;
 Object.values(objs).forEach(g=>{const u=g.userData;u.s+=((g===S.cur?1:0)-u.s)*(RM?1:.14);u.sp*=.9;g.visible=u.s>.01;g.scale.setScalar(Math.max(.001,u.s)*gs);g.rotation.set(rx+gx,ry+gy+u.sp,0)});
@@ -112,7 +112,7 @@ const items=()=>G[grp].items.map(byId);
 function txt(anim){const x=F[fi].id==='biz'?BIZ:C[ci],t=$('#sw-txt'),ap=()=>{$('#sw-h').textContent=x.h;$('#sw-p').textContent=x.p;$('#sw-o').textContent=x.o;t.style.opacity=1};if(anim){t.style.opacity=0;setTimeout(ap,150)}else ap()}
 function dots(){const dt=$('#sw-dots'),it=items(),biz=F[fi].id==='biz';dt.hidden=biz||it.length<2;dt.innerHTML='';it.forEach((c,j)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label',c.k);b.setAttribute('aria-current',j==vi);b.onclick=()=>pick(j,1);dt.append(b)})}
 function pick(j,user){vi=j;ci=C.indexOf(items()[j]);txt(true);[...$('#sw-dots').children].forEach((b,k)=>b.setAttribute('aria-current',k==vi));const f=F[fi];if(combo)combo.set(f.id,f.id==='biz'?{}:C[ci],1);if(user)cycle()}
-function cycle(){clearInterval(cy);if(RM||F[fi].id==='biz'||items().length<2)return;cy=setInterval(()=>{if(document.hidden||gi>0||!combo||!combo.vis)return;pick((vi+1)%items().length)},4200)}
+function cycle(){clearInterval(cy);if(RM||F[fi].id==='biz'||items().length<2)return;cy=setInterval(()=>{if(document.hidden||gi>0||!combo||!combo.vis)return;pick((vi+1)%items().length)},3200)}
 function upd(spin){const f=F[fi];ft.querySelectorAll('button').forEach((b,j)=>b.setAttribute('aria-selected',j==fi));const biz=f.id==='biz',tb=$('#tabs');tb.hidden=biz;tb.previousElementSibling.hidden=biz;
 txt(!!spin);dots();upUI();cycle();combo&&combo.set(f.id,biz?{}:C[ci],spin)}
 /* галерея под моделью: 3D, фото 1-3, снова 3D */
