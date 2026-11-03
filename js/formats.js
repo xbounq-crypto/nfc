@@ -112,7 +112,7 @@ const items=()=>G[grp].items.map(byId);
 function txt(anim){const x=F[fi].id==='biz'?BIZ:C[ci],t=$('#sw-txt'),ap=()=>{$('#sw-h').textContent=x.h;$('#sw-p').textContent=x.p;$('#sw-o').textContent=x.o;t.style.opacity=1};if(anim){t.style.opacity=0;setTimeout(ap,150)}else ap()}
 function dots(){const dt=$('#sw-dots'),it=items(),biz=F[fi].id==='biz';dt.hidden=biz||it.length<2;dt.innerHTML='';it.forEach((c,j)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label',c.k);b.setAttribute('aria-current',j==vi);b.onclick=()=>pick(j,1);dt.append(b)})}
 function pick(j,user){vi=j;ci=C.indexOf(items()[j]);txt(true);[...$('#sw-dots').children].forEach((b,k)=>b.setAttribute('aria-current',k==vi));const f=F[fi];if(combo)combo.set(f.id,f.id==='biz'?{}:C[ci],1);if(user)cycle()}
-function cycle(){clearInterval(cy);if(RM||F[fi].id==='biz'||items().length<2)return;cy=setInterval(()=>{if(document.hidden||gi>0||!combo||!combo.vis)return;pick((vi+1)%items().length)},3200)}
+function cycle(){clearInterval(cy);if(RM||F[fi].id==='biz'||items().length<2)return;cy=setInterval(()=>{if(document.hidden||gi>0||!combo||!combo.vis)return;pick((vi+1)%items().length)},4200)}
 function upd(spin){const f=F[fi];ft.querySelectorAll('button').forEach((b,j)=>b.setAttribute('aria-selected',j==fi));const biz=f.id==='biz',tb=$('#tabs');tb.hidden=biz;tb.previousElementSibling.hidden=biz;
 txt(!!spin);dots();upUI();cycle();combo&&combo.set(f.id,biz?{}:C[ci],spin)}
 /* галерея под моделью: 3D, фото 1-3, снова 3D */
